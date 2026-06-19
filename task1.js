@@ -4173,7 +4173,9 @@ function likeText() {
 
 /*
 🎯 ЗАДАНИЕ 20
-Создай класс ProgressBar со свойством progress (от 0 до 100, по умолчанию 0). Добавь методы increase(amount) и decrease(amount) — значение не может выйти за границы 0-100.
+Создай класс ProgressBar со свойством progress (от 0 до 100, по умолчанию 0). 
+Добавь методы increase(amount) и decrease(amount) — 
+значение не может выйти за границы 0-100.
 В HTML уже есть:
 html<button id="btn-decrease">−10%</button>
 <div id="progress-track">
@@ -4188,16 +4190,52 @@ html<button id="btn-decrease">−10%</button>
 При клике на −10% — уменьшает прогресс на 10
 Обновляет ширину #progress-bar (через style.width)
 Обновляет текст #progress-text
+*/
+
+class ProgressBar {
+    constructor (progress = 0) {
+        this.progress = progress;
+    }
+
+    increase(amount = 10) {
+        if (this.progress >= 100) {
+            console.log('Nooooo');
+        } else {
+            this.progress += amount;
+            }
+    }
+
+    decrease(amount = 10) {
+        if (this.progress <= 0) {
+           console.log('Nooxxxxxooo');
+        } else {
+        this.progress -= amount;
+        }
+    }
+
+}
+
+const q = new ProgressBar (40);
+
+q.increase();
+
+q.decrease();
 
 
 
 
-
-
-
-
-
-
+// Спросить, а для чего он нужен и почему с ним не получается?
+ get progress() {
+        return this.progress;
+    }
+    
+    set progress (amount) {
+        if (amount < 0 || amount > 100) {
+            return console.log('fuck you');
+        } else {
+            return this.progress;
+        }
+    }
 
 
 
