@@ -4142,65 +4142,52 @@ class LikeButton {
             this.isLiked = false;
         }
     }
+
+    getLikes () {
+        return this.likes;
+    }
 }
 
-const like = new LikeButton ();
+const like = new LikeButton();
 
 btn.addEventListener('click', handleClick);
 
-function handleClick () {
-  console.log('dddddd');
-  if (isLiked) {
-    like.toggle();
-    likeCounter.innerText = like.likes;
-  }
+function handleClick() {
+    console.log('sds');
+       like.toggle();
+
+       if (isLiked) {
+        return btn.innerText = '❤️ Лайк';
+       } else {
+        return btn.innerText = '🤍 Лайк';
+       }
+       likeText ();
+}
+
+
+function likeText() {
+    return likeCounter.innerText = like.getLikes();
 }
 
 
 
+/*
+🎯 ЗАДАНИЕ 20
+Создай класс ProgressBar со свойством progress (от 0 до 100, по умолчанию 0). Добавь методы increase(amount) и decrease(amount) — значение не может выйти за границы 0-100.
+В HTML уже есть:
+html<button id="btn-decrease">−10%</button>
+<div id="progress-track">
+    <div id="progress-bar" style="width: 0%"></div>
+</div>
+<span id="progress-text">0%</span>
+<button id="btn-increase">+10%</button>
+Напиши JS который:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Создаёт объект ProgressBar
+При клике на +10% — увеличивает прогресс на 10
+При клике на −10% — уменьшает прогресс на 10
+Обновляет ширину #progress-bar (через style.width)
+Обновляет текст #progress-text
 
 
 
