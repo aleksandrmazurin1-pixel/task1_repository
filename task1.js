@@ -4192,6 +4192,15 @@ html<button id="btn-decrease">−10%</button>
 Обновляет текст #progress-text
 */
 
+
+
+
+
+const btnDec = document.getElementById('btn-decrease');
+const btnInc = document.getElementById('btn-increase');
+const progText = document.getElementById('progress-text');
+const progBar = document.getElementById('progress-bar');
+
 class ProgressBar {
     constructor (progress = 0) {
         this.progress = progress;
@@ -4215,11 +4224,30 @@ class ProgressBar {
 
 }
 
-const q = new ProgressBar (40);
+const q = new ProgressBar();
 
-q.increase();
+btnDec.addEventListener('click', handleDec);
+btnInc.addEventListener('click', handleInc);
 
-q.decrease();
+function handleInc (amount = 10) {
+    q.increase();
+    changeProgText();
+    progBar.style.width = `${q.progress}%`;
+
+}
+
+function handleDec () {
+    q.decrease();
+    changeProgText();
+    progBar.style.width = `${q.progress}%`;
+}
+
+
+function changeProgText() {
+    progText.innerText = q.progress;
+}
+
+
 
 
 
@@ -4236,6 +4264,75 @@ q.decrease();
             return this.progress;
         }
     }
+
+
+
+
+
+/*
+🎯 ЗАДАНИЕ 21
+Создай класс Modal (модальное окно) со свойством isOpen (по умолчанию false). 
+Используй приватное свойство #isOpen с геттером/сеттером — помнишь урок из предыдущего задания!
+Добавь методы open() и close().
+В HTML уже есть:
+html<button id="open-btn">Открыть окно</button>
+<div id="modal" class="hidden">
+    <p>Это модальное окно!</p>
+    <button id="close-btn">Закрыть</button>
+</div>
+Напиши JS который:
+
+Создаёт объект Modal
+При клике на #open-btn — открывает модалку, убирает класс 'hidden' с #modal
+При клике на #close-btn — закрывает модалку, добавляет класс 'hidden'
+*/
+
+
+
+class Modal {
+    #isOpen;
+    constructor (isOpen = false) {
+        this.#isOpen = isOpen;
+    }
+
+    get isOpen () {
+        return this.#isOpen;
+    }
+
+    open() {
+        this.#isOpen = true;
+    }
+
+    close() {
+        this.#isOpen = false;
+    }
+}
+
+const modal = new Modal();
+
+modal;
+
+modal.open();
+
+modal.close();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
