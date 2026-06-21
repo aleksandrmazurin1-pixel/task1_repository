@@ -4319,23 +4319,131 @@ modal.close();
 
 
 
+/*
+🎯 ЗАДАНИЕ 9 — закрепление
+Создай класс Wallet (кошелёк) со свойством balance (по умолчанию 0). 
+Добавь методы add(amount), subtract(amount) (не уходит в минус — если недостаточно средств, 
+сообщение 'Недостаточно денег!') и getBalance().
+Создай кошелёк, положи деньги, попробуй снять больше чем есть, потом сними нормальную сумму. 
+Выведи баланс.
+*/
+
+
+class Wallet {
+    constructor (balance = 0) {
+        this.balance = balance;
+    }
+
+    add(amount) {
+        if (amount < 0) {
+            console.log('Нельзя добавить отрицательную сумму!');
+            return;
+        }
+        return this.balance += amount;
+    }
+
+    subtract(amount) {
+        if(amount > this.balance) {
+            console.log('Недостаточно денег.');
+            return;
+        }
+        return this.balance -= amount;
+    }
+
+    getBalance() {
+        return this.balance;
+    }
+}
+
+
+const q = new Wallet();
+
+q.add(300);
+q.add(-4);
+q;
+q.subtract(459);
+q.subtract(200);
+
+q.getBalance();
 
 
 
 
+/*
+🎯 ЗАДАНИЕ 10 — закрепление
+Создай класс Tooltip (всплывающая подсказка) со свойством isVisible (по умолчанию false).
+В HTML уже есть:
+html<button id="info-btn">ⓘ Информация</button>
+<div id="tooltip" class="hidden">Это полезная подсказка!</div>
+Напиши JS который:
+
+Создаёт объект Tooltip с методами show() и hide()
+При наведении мыши (mouseenter) на кнопку — показывает подсказку (убирает класс 'hidden')
+При уходе мыши (mouseleave) — скрывает подсказку (добавляет класс 'hidden')
+*/
+
+
+const btn = document.getElementById('info-btn');
+const tt = document.getElementById('tooltip');
+
+class Tooltip {
+    constructor(isVisible = false) {
+        this.isVisible = isVisible;
+    }
+
+    show() {
+        this.isVisible = true;
+    }
+
+    hide() {
+        this.isVisible = false;
+    }
+}
+
+const toolTip = new Tooltip();
+
+btn.addEventListener('mouseenter', handleEnterBtn);
+btn.addEventListener('mouseleave', handleLeaveBtn);
+
+
+function handleEnterBtn () {
+    toolTip.show();
+    tt.classList.remove('hidden');
+}
+
+function handleLeaveBtn () {
+    toolTip.hide();
+    tt.classList.add('hidden');
+}
 
 
 
 
+/*
+🎯 ЗАДАНИЕ 11 — Наследование + DOM
+Создай класс Shape (фигура) со свойством color. 
+Добавь метод getInfo() который возвращает 'Фигура цвета: {color}'.
+Создай дочерний класс Circle который наследует Shape. 
+Добавь свойство radius. Переопредели getInfo() — добавь информацию о радиусе.
 
+HTML
+<button id="create-circle-btn">Создать круг</button>
+<div id="shapes-output"></div>
 
+CSS
+#shapes-output div {
+    padding: 8px;
+    margin: 4px 0;
+    background: #f0f0f0;
+    border-radius: 4px;
+}
 
+Напиши JS который при клике на кнопку:
 
-
-
-
-
-
+Создаёт объект Circle с цветом 'red' и радиусом 10
+Создаёт новый <div> через createElement
+Вставляет туда текст из getInfo()
+Добавляет <div> в #shapes-output
 
 
 
