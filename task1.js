@@ -4444,7 +4444,41 @@ CSS
 Создаёт новый <div> через createElement
 Вставляет туда текст из getInfo()
 Добавляет <div> в #shapes-output
+*/
 
 
+const btn = document.getElementById('create-circle-btn');
+const newShape = document.getElementById('shapes-output');
 
 
+class Shape {
+    constructor(color = 'red') {
+        this.color = color;
+    }
+
+    getInfo() {
+       return (`Фиура цвета: ${this.color}`);
+    }
+
+}
+
+class Circle extends Shape {
+    constructor (color, radius = 10) {
+        super(color);
+        this.radius = radius;
+    }
+
+    getInfo () {
+        return (`Фиура цвета: ${this.color}, и радиуса: ${this.radius}`);
+    }
+
+}
+
+btn.addEventListener('click', handleBtn);
+
+function handleBtn() {
+    const newCircle = new Circle();
+    const newElement = document.createElement('div');
+    newElement.innerText = newCircle.getInfo(); 
+    newShape.appendChild(newElement);
+}
