@@ -4482,3 +4482,79 @@ function handleBtn() {
     newElement.innerText = newCircle.getInfo(); 
     newShape.appendChild(newElement);
 }
+
+
+
+
+/*
+🎯 ЗАДАНИЕ 12 — Массив объектов + рендер списка
+Создай класс Task со свойствами title и isDone (по умолчанию false).
+
+HTML:
+<ul id="tasks-list"></ul>
+
+CSS:
+#tasks-list li {
+    padding: 8px;
+    margin: 4px 0;
+    background: #f0f0f0;
+    border-radius: 4px;
+    list-style: none;
+}
+
+Напиши JS который:
+
+Создаёт массив из трёх объектов Task: 'Купить хлеб', 'Позвонить маме', 'Погулять'
+Пишет функцию renderTasks() которая:
+
+очищает #tasks-list (через innerHTML = '')
+перебирает массив через forEach
+для каждой задачи создаёт <li> с текстом названия
+добавляет <li> в #tasks-list
+
+
+Вызывает renderTasks()
+*/
+
+
+const list = document.getElementById('tasks-list');
+
+
+class Task {
+
+    task = [];
+
+    constructor(name = 'Tasker') {
+        this.name = name
+    }
+
+    pushTask(title, isDone = false) {
+        this.task.push({ title, isDone });
+    }
+}
+
+const tasker = new Task();
+
+function renderTasks() {
+    list.innerHTML = "";
+
+    tasker.task.forEach(element => {
+        const li = document.createElement('li');
+        li.innerText = element.title;
+        list.appendChild(li);
+    });
+}
+
+tasker.pushTask('sds');
+
+tasker.pushTask('aasds');
+
+tasker.pushTask('Helaaaaaaaaaaaaaaalo');
+
+
+renderTasks();
+
+
+
+
+
