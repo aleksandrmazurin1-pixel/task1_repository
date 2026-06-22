@@ -4627,19 +4627,44 @@ CSS:
 */
 
 
-class Task {
-    task = [];
+const inp = document.getElementById('task-input');
+const btn = document.getElementById('add-task-btn');
+const list = document.getElementById('tasks-list');
+
+
+
+class Task {  
     constructor(title, isDone = false) {
-        this.tiitle = title;
+        this.title = title;
         this.isDone = isDone;
     }
-
-
 }
 
-function create(title) {
-    this.task.push(new Task(this.title));
+const tasker = [];
+
+btn.addEventListener('click', handleBtn);
+
+function handleBtn () {
+  if (inp.value === '') {
+    alert ('sdsdddqqq');
+  } else {
+    createArr(inp.value);
+  }
 }
 
+function createArr(title) {
+  tasker.push(new Task(title));
+  console.log('cre')
+  renderTask();
+}
 
-const q = create('sds');
+function renderTask () {
+  console.log('renderTask')
+  list.innerText = '';
+  tasker.forEach(el => {
+    const li = document.createElement('li');
+    li.innerText = el.title;
+    list.appendChild(li);
+  });
+}
+
