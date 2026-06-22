@@ -4558,3 +4558,69 @@ renderTasks();
 
 
 
+/*
+🎯 ЗАДАНИЕ 12.1
+Архитектура для этого задания:
+
+Класс Task описывает одну задачу — у него есть только constructor(title, isDone = false), 
+никаких массивов внутри и никаких методов добавления.
+Массив задач объявляется снаружи класса, обычной переменной: const tasks = [...], 
+и сразу содержит три объекта new Task(...).
+
+Напиши:
+
+Класс Task с конструктором (title, isDone)
+Массив tasks с тремя объектами: 'Купить хлеб', 'Позвонить маме', 'Погулять'
+Функцию renderTasks() которая очищает #tasks-list и 
+через forEach по массиву tasks создаёт <li> с текстом task.title для каждого, добавляя их в список
+Вызов renderTasks()
+*/
+
+
+const list = document.getElementById('tasks-list');
+
+class Task {
+    constructor (title, isDone = false) {
+        this.title = title; 
+        this.isDone = isDone;
+    }
+}
+
+const task = [new Task('купить хлеб'), new Task('Позвонить маме.'), new Task('Погулять.')];
+
+function renderTask() {
+    list.innerText = '';
+    task.forEach(el => {
+        const li = document.createElement('li');
+        li.innerText = el.title;
+        list.appendChild(li);
+    });
+}
+
+renderTask();
+
+
+
+/*
+ЗАДАНИЕ 13 — Добавление элемента в массив + перерисовка
+HTML:
+<input type="text" id="task-input" placeholder="Новая задача">
+<button id="add-task-btn">Добавить задачу</button>
+<ul id="tasks-list"></ul>
+CSS:
+#tasks-list li {
+    padding: 8px;
+    margin: 4px 0;
+    background: #f0f0f0;
+    border-radius: 4px;
+    list-style: none;
+}
+Используй класс Task и массив tasks из задания 12.1 
+(можешь оставить там же три стартовые задачи, либо начать с пустого массива — на твой выбор).
+Напиши JS который:
+
+При клике на кнопку — берёт текст из #task-input
+Если текст не пустой — создаёт new Task(текст) и добавляет его в массив tasks (через push)
+Очищает #task-input
+Вызывает renderTasks() чтобы список обновился
+Если текст пустой — alert('Введите задачу!')
