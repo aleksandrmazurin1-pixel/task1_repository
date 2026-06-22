@@ -4624,3 +4624,22 @@ CSS:
 Очищает #task-input
 Вызывает renderTasks() чтобы список обновился
 Если текст пустой — alert('Введите задачу!')
+*/
+
+
+class Task {
+    task = [];
+    constructor(title, isDone = false) {
+        this.tiitle = title;
+        this.isDone = isDone;
+    }
+
+
+}
+
+function create(title) {
+    this.task.push(new Task(this.title));
+}
+
+
+const q = create('sds');
