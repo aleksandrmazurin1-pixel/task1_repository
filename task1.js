@@ -4143,7 +4143,7 @@ class LikeButton {
         }
     }
 
-    getLikes () {
+    getLikes() {
         return this.likes;
     }
 }
@@ -4154,14 +4154,14 @@ btn.addEventListener('click', handleClick);
 
 function handleClick() {
     console.log('sds');
-       like.toggle();
+    like.toggle();
 
-       if (isLiked) {
+    if (isLiked) {
         return btn.innerText = '❤️ Лайк';
-       } else {
+    } else {
         return btn.innerText = '🤍 Лайк';
-       }
-       likeText ();
+    }
+    likeText();
 }
 
 
@@ -4202,7 +4202,7 @@ const progText = document.getElementById('progress-text');
 const progBar = document.getElementById('progress-bar');
 
 class ProgressBar {
-    constructor (progress = 0) {
+    constructor(progress = 0) {
         this.progress = progress;
     }
 
@@ -4211,14 +4211,14 @@ class ProgressBar {
             console.log('Nooooo');
         } else {
             this.progress += amount;
-            }
+        }
     }
 
     decrease(amount = 10) {
         if (this.progress <= 0) {
-           console.log('Nooxxxxxooo');
+            console.log('Nooxxxxxooo');
         } else {
-        this.progress -= amount;
+            this.progress -= amount;
         }
     }
 
@@ -4229,14 +4229,14 @@ const q = new ProgressBar();
 btnDec.addEventListener('click', handleDec);
 btnInc.addEventListener('click', handleInc);
 
-function handleInc (amount = 10) {
+function handleInc(amount = 10) {
     q.increase();
     changeProgText();
     progBar.style.width = `${q.progress}%`;
 
 }
 
-function handleDec () {
+function handleDec() {
     q.decrease();
     changeProgText();
     progBar.style.width = `${q.progress}%`;
@@ -4254,16 +4254,16 @@ function changeProgText() {
 
 // Спросить, а для чего он нужен и почему с ним не получается?
  get progress() {
+    return this.progress;
+}
+    
+    set progress(amount) {
+    if (amount < 0 || amount > 100) {
+        return console.log('fuck you');
+    } else {
         return this.progress;
     }
-    
-    set progress (amount) {
-        if (amount < 0 || amount > 100) {
-            return console.log('fuck you');
-        } else {
-            return this.progress;
-        }
-    }
+}
 
 
 
@@ -4291,11 +4291,11 @@ html<button id="open-btn">Открыть окно</button>
 
 class Modal {
     #isOpen;
-    constructor (isOpen = false) {
+    constructor(isOpen = false) {
         this.#isOpen = isOpen;
     }
 
-    get isOpen () {
+    get isOpen() {
         return this.#isOpen;
     }
 
@@ -4330,7 +4330,7 @@ modal.close();
 
 
 class Wallet {
-    constructor (balance = 0) {
+    constructor(balance = 0) {
         this.balance = balance;
     }
 
@@ -4343,7 +4343,7 @@ class Wallet {
     }
 
     subtract(amount) {
-        if(amount > this.balance) {
+        if (amount > this.balance) {
             console.log('Недостаточно денег.');
             return;
         }
@@ -4406,12 +4406,12 @@ btn.addEventListener('mouseenter', handleEnterBtn);
 btn.addEventListener('mouseleave', handleLeaveBtn);
 
 
-function handleEnterBtn () {
+function handleEnterBtn() {
     toolTip.show();
     tt.classList.remove('hidden');
 }
 
-function handleLeaveBtn () {
+function handleLeaveBtn() {
     toolTip.hide();
     tt.classList.add('hidden');
 }
@@ -4457,18 +4457,18 @@ class Shape {
     }
 
     getInfo() {
-       return (`Фиура цвета: ${this.color}`);
+        return (`Фиура цвета: ${this.color}`);
     }
 
 }
 
 class Circle extends Shape {
-    constructor (color, radius = 10) {
+    constructor(color, radius = 10) {
         super(color);
         this.radius = radius;
     }
 
-    getInfo () {
+    getInfo() {
         return (`Фиура цвета: ${this.color}, и радиуса: ${this.radius}`);
     }
 
@@ -4479,7 +4479,7 @@ btn.addEventListener('click', handleBtn);
 function handleBtn() {
     const newCircle = new Circle();
     const newElement = document.createElement('div');
-    newElement.innerText = newCircle.getInfo(); 
+    newElement.innerText = newCircle.getInfo();
     newShape.appendChild(newElement);
 }
 
@@ -4580,8 +4580,8 @@ renderTasks();
 const list = document.getElementById('tasks-list');
 
 class Task {
-    constructor (title, isDone = false) {
-        this.title = title; 
+    constructor(title, isDone = false) {
+        this.title = title;
         this.isDone = isDone;
     }
 }
@@ -4659,6 +4659,7 @@ function createArr(title) {
 }
 
 function renderTask () {
+  inp.value = ''; 
   console.log('renderTask')
   list.innerText = '';
   tasker.forEach(el => {
@@ -4667,4 +4668,164 @@ function renderTask () {
     list.appendChild(li);
   });
 }
+
+
+
+
+/*
+🎯 ЗАДАНИЕ 14 — Удаление элемента из массива + перерисовка
+HTML (дополни предыдущий, добавь кнопку удаления внутри каждого <li>):
+html
+<input type="text" id="task-input" placeholder="Новая задача">
+<button id="add-task-btn">Добавить задачу</button>
+<ul id="tasks-list"></ul>
+CSS:
+#tasks-list li {
+    padding: 8px;
+    margin: 4px 0;
+    background: #f0f0f0;
+    border-radius: 4px;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#tasks-list button {
+    cursor: pointer;
+}
+Используй тот же класс Task и массив tasker из задания 13.
+Напиши JS который:
+
+В renderTask() — для каждой задачи создаёт не только <li> с текстом, 
+но и кнопку <button> с текстом 'Удалить' внутри этого <li> (через appendChild)
+На каждую кнопку удаления повешен addEventListener('click', ...), который при 
+клике удаляет именно эту задачу из массива tasker (через filter, по совпадению 
+объекта или индекса — подумай как) и вызывает renderTask() снова
+
+💡 Подсказка по архитектуре: внутри forEach((el, index) => {...}) 
+у тебя есть доступ к index — можно использовать его, чтобы отличить, 
+какую именно задачу удалять.
+*/
+
+
+/*
+Используй класс Task и массив tasks из задания 12.1 
+(можешь оставить там же три стартовые задачи, либо начать с пустого массива — на твой выбор).
+Напиши JS который:
+
+При клике на кнопку — берёт текст из #task-input
+Если текст не пустой — создаёт new Task(текст) и добавляет его в массив tasks (через push)
+Очищает #task-input
+Вызывает renderTasks() чтобы список обновился
+Если текст пустой — alert('Введите задачу!')
+*/
+
+
+const inp = document.getElementById('task-input');
+const btn = document.getElementById('add-task-btn');
+const list = document.getElementById('tasks-list');
+
+class Task {
+  constructor(title, isDone = false) {
+    this.title = title;
+    this.isDone = isDone;
+  }
+}
+
+let tasker = [];
+
+btn.addEventListener('click', handleBtn)
+
+function pushElement(title) {
+  tasker.push(new Task(title));
+}
+
+function handleBtn() {
+  console.log('sdds');
+  if (inp.value === '') {
+    alert('sdsdssd qqq');
+  } else {
+    pushElement(inp.value);
+  }
+  renderTask();
+}
+
+function renderTask () {
+  inp.value = '';
+  list.innerHTML = '';
+  tasker.forEach((elka, index) => {
+
+    const li = document.createElement('li');
+    const btnDel = document.createElement('button');
+    
+    li.innerText = elka.title;
+    btnDel.innerText = 'X';
+  
+    list.appendChild(li);
+    li.appendChild(btnDel);
+
+    btnDel.addEventListener('click', () => handlebtnDel(index));
+  });
+}
+
+
+function handlebtnDel(index) {
+  tasker = tasker.filter((task, i) => i !== index);
+  renderTask();
+  return;
+}
+
+
+/*
+🎯 ЗАДАНИЕ 15 ФИНАЛОЧКА
+Архитектура (пиши с нуля, используя весь опыт из заданий 1-14):
+1. Классы:
+
+Vehicle — базовый класс. Приватное свойство #fuel. Геттер fuel для чтения. 
+Сеттер fuel с проверкой границ 0-100 (если значение выходит за границы — 
+выводи сообщение и не меняй значение). Статическое свойство, считающее общее 
+количество созданных машин. Конструктор принимает name и стартовое значение топлива. 
+Методы drive(amount = 10) (уменьшает топливо, не уходя в минус — 
+если топлива не хватает, сообщение) и refuel(amount = 20) (увеличивает топливо, 
+не превышая 100).
+Truck extends Vehicle — наследует всё от Vehicle через super(). 
+Переопредели drive() так, чтобы грузовик тратил топливо быстрее 
+(например, amount = 20 по умолчанию вместо 10).
+
+2. Массив снаружи класса:
+
+const fleet = [] — хранит объекты Vehicle/Truck, как в задании 12.1/13/14.
+
+3. Функции (по аналогии с todo-листом из заданий 13-14):
+
+addVehicle() — обработчик кнопки: читает значения из трёх полей формы 
+(car-name, car-type, car-fuel), создаёт new Vehicle(...) или new Truck(...) 
+в зависимости от выбранного типа, пушит в fleet, очищает поля формы, 
+вызывает перерисовку
+renderFleet() — очищает #fleet-list, перебирает fleet через 
+forEach((vehicle, index) => ...), для каждой машины создаёт <li> с названием, 
+типом, текстом уровня топлива и полоской прогресса (div.fuel-track → div.fuel-bar 
+с style.width), плюс три кнопки: "Поехать", "Заправить", "Удалить" — у каждой 
+свой addEventListener с передачей index через стрелочную обёртку (как в задании 14!)
+updateStats() — обновляет три <span> в блоке статистики: используй статическое 
+свойство класса для общего числа машин, и подсчитай легковые/грузовики через 
+fleet.filter(...) по тому, является машина экземпляром Truck или нет 
+(подсказка: есть оператор instanceof, который мы разбирали в теории — 
+vehicle instanceof Truck)
+
+4. Обработчики кнопок внутри renderFleet():
+
+"Поехать" → вызывает vehicle.drive(), потом перерисовку
+"Заправить" → вызывает vehicle.refuel(), потом перерисовку
+"Удалить" → убирает эту машину из fleet через filter по индексу 
+(как в задании 14!), потом перерисовку
+
+
+
+
+
+
+
+
+
 
