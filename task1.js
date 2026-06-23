@@ -4247,11 +4247,6 @@ function changeProgText() {
     progText.innerText = q.progress;
 }
 
-
-
-
-
-
 // Спросить, а для чего он нужен и почему с ним не получается?
  get progress() {
     return this.progress;
@@ -4819,13 +4814,61 @@ vehicle instanceof Truck)
 "Заправить" → вызывает vehicle.refuel(), потом перерисовку
 "Удалить" → убирает эту машину из fleet через filter по индексу 
 (как в задании 14!), потом перерисовку
+*/
 
 
+class Vehicle {
+    #fuel;
+    static totalCars = 0;
+    constructor(name, fuel = 0) {
+        this.name = name;
+        this.#fuel = fuel;
+    }
 
+    get fuel () {
+        return this.#fuel;
+    }
 
+    set fuel(gas) {
+        if (gas < 0 || gas > 100) {
+            alert ('fuel');
+            return;
+        } else {
+            return this.#fuel = gas;
+        }
+    }
 
+    drive(amount = 10) {
+        if ((this.#fuel - amount) <= 0) {
+            console.log('drive');
+            return;
+        } else {
+            return this.#fuel -= amount;    
+        }
+    }
 
+    refuel(amount = 20) {
+        if (this.#fuel >= 100) {
+            alert ('refuel');
+            return;
+        } else {
+            return this.#fuel += amount;    
+        }
+        
+    }
+}
 
+class Truck extends Vehicle {
 
+    constructor (name, fuel = 0) {
+        super(name, fuel);
+    } 
+
+    drive(amount = 20) {
+        return this.fuel -= amount;
+    }
+}
+
+const q = new Vehicle('ssd');
 
 
