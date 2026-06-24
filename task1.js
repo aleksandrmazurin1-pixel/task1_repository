@@ -5038,15 +5038,14 @@ function handlePush(name, fuel) {
   }
 }
 
-form.addEventListener('submit', addVehicle);
+form.addEventListener('submit', addForm);
 
-function addVehicle(evt) {
+function addForm(evt) {
   evt.preventDefault();
   handlePush(inpCar.value, Number(inpFuel.value));
-
-  console.log('btn');
-  inpCar.value = '';
-  inpFuel.value = '';
+  console.log(Number(inpFuel.value));
+  //inpCar.value = '';
+  //inpFuel.value = '';
   renderFleet();
   console.log(fleet);
 }
@@ -5077,16 +5076,27 @@ function renderFleet() {
     li.innerText = el.name;
     console.log(el.name);
     list.prepend(li);
-    liCard(li)
-  }) 
+    liCard(li);
+  });
 }
 
 function liCard(li) {
   console.log('liCard');
   const carType = document.createElement('div');
-  li.prepend(carType);
-  carType.innerText = selector.value;
+  carType.innerText = selector.value; //Пока что неправильно работает, поправить!
+  li.append(carType);
+  
+  const persentOfFuel = document.createElement('span');
+  persentOfFuel.innerHTML = `${Number(inpFuel.value)}%`; //Пока что неправильно работает, поправить!
+  li.append(persentOfFuel);
+  console.log(Number(inpFuel.value))
 
+  const progBar = document.createElement('div');
+  progBar.classList.add('progress-bar');
+  progBar.style.width = `${Number(inpFuel.value)}%`; //Пока что неправильно работает, поправить!
+  li.append(progBar);
+  inpFuel.value = '';
+  inpCar.value = '';
 }
 
 const q = new Vehicle('ssd');
