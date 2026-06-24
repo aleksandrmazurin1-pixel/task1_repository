@@ -4829,7 +4829,7 @@ class Vehicle {
         return this.#fuel;
     }
 
-    set fuel(gas) {
+    set fuel(gas) { 
         if (gas < 0 || gas > 100) {
             alert ('fuel');
             return;
@@ -4838,9 +4838,10 @@ class Vehicle {
         }
     }
 
+    
     drive(amount = 10) {
-        if ((this.#fuel - amount) <= 0) {
-            console.log('drive');
+        if ((this.#fuel - amount) < 0) {
+            alert('drive');
             return;
         } else {
             return this.#fuel -= amount;    
@@ -4848,7 +4849,7 @@ class Vehicle {
     }
 
     refuel(amount = 20) {
-        if (this.#fuel >= 100) {
+        if ((this.#fuel + amount) > 100) {
             alert ('refuel');
             return;
         } else {
@@ -4859,11 +4860,11 @@ class Vehicle {
 }
 
 class Truck extends Vehicle {
-
+    
     constructor (name, fuel = 0) {
         super(name, fuel);
     } 
-
+    
     drive(amount = 20) {
         return this.fuel -= amount;
     }
@@ -4872,3 +4873,250 @@ class Truck extends Vehicle {
 const q = new Vehicle('ssd');
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*set fuel() { //Почему тут обязательна переменная gas? Иначе ничего не работает. Пишет следующую ошибку. Uncaught SyntaxError: Setter must have exactly one formal parameter.
+    if (this.#fuel < 0 || this.#fuel > 100) {
+        alert ('fuel');
+        return;
+    } else {
+        return this.#fuel;
+    }
+}*/
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+В процессе!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+/*🎯 ЗАДАНИЕ 15 ФИНАЛОЧКА
+
+2. Массив снаружи класса:
+
+const fleet = [] — хранит объекты Vehicle/Truck, как в задании 12.1/13/14.
+
+3. Функции (по аналогии с todo-листом из заданий 13-14):
+
+addVehicle() — обработчик кнопки: читает значения из трёх полей формы 
+(car-name, car-type, car-fuel), создаёт new Vehicle(...) или new Truck(...) 
+в зависимости от выбранного типа, пушит в fleet, очищает поля формы, 
+вызывает перерисовку
+renderFleet() — очищает #fleet-list, перебирает fleet через 
+forEach((vehicle, index) => ...), для каждой машины создаёт <li> с названием, 
+типом, текстом уровня топлива и полоской прогресса (div.fuel-track → div.fuel-bar 
+с style.width), плюс три кнопки: "Поехать", "Заправить", "Удалить" — у каждой 
+свой addEventListener с передачей index через стрелочную обёртку (как в задании 14!)
+updateStats() — обновляет три <span> в блоке статистики: используй статическое 
+свойство класса для общего числа машин, и подсчитай легковые/грузовики через 
+fleet.filter(...) по тому, является машина экземпляром Truck или нет 
+(подсказка: есть оператор instanceof, который мы разбирали в теории — 
+vehicle instanceof Truck)
+
+4. Обработчики кнопок внутри renderFleet():
+
+"Поехать" → вызывает vehicle.drive(), потом перерисовку
+"Заправить" → вызывает vehicle.refuel(), потом перерисовку
+"Удалить" → убирает эту машину из fleet через filter по индексу 
+(как в задании 14!), потом перерисовку
+*/
+
+const form = document.getElementById('form');
+const inpCar = document.getElementById('car-name');
+const selector = document.getElementById('car-type');
+const inpFuel = document.getElementById('car-fuel');
+const btn = document.getElementById('add-car-btn');
+
+const list = document.getElementById('fleet-list');
+ 
+
+class Vehicle {
+  #fuel;
+  static totalCars = 0;
+  static totalAllVehicle = 0;
+  constructor(name, fuel = 0) {
+    this.name = name;
+    this.#fuel = fuel;
+    if (new.target === Vehicle) {
+      Vehicle.totalCars++;
+    }
+    Vehicle.totalAllVehicle++;
+  }
+
+  get fuel() {
+    return this.#fuel;
+  }
+
+  set fuel(gas) {
+    if (gas < 0 || gas > 100) {
+      alert('fuel');
+      return;
+    } else {
+      return this.#fuel = gas;
+    }
+  }
+
+
+  drive(amount = 10) {
+    if ((this.#fuel - amount) < 0) {
+      alert('drive');
+      return;
+    } else {
+      return this.#fuel -= amount;
+    }
+  }
+
+  refuel(amount = 20) {
+    if ((this.#fuel + amount) > 100) {
+      alert('refuel');
+      return;
+    } else {
+      return this.#fuel += amount;
+    }
+  }
+
+  static getTotalCars() {
+    return this.totalCars;
+  }
+}
+
+class Truck extends Vehicle {
+  static totalTrucks = 0;
+  constructor(name, fuel = 0) {
+    super(name, fuel);
+    Truck.totalTrucks++;
+  }
+
+  drive(amount = 20) {
+    return this.fuel -= amount;
+  }
+
+  static getTotalTrucks() {
+    return this.totalTrucks;
+  }
+
+  static getAllTotals() {
+    return this.totalAllVehicle;
+  }
+}
+
+
+let fleet = [];
+
+function handlePush(name, fuel) {
+  if (selector.value === 'car') {
+    fleet.push(new Vehicle(name, fuel));
+  } else {
+    fleet.push(new Truck(name, fuel));
+  }
+}
+
+form.addEventListener('submit', addVehicle);
+
+function addVehicle(evt) {
+  evt.preventDefault();
+  handlePush(inpCar.value, Number(inpFuel.value));
+
+  console.log('btn');
+  inpCar.value = '';
+  inpFuel.value = '';
+  renderFleet();
+  console.log(fleet);
+}
+
+/*
+renderFleet() — очищает #fleet-list, перебирает fleet через 
+forEach((vehicle, index) => ...), для каждой машины создаёт <li> с названием, 
+типом, текстом уровня топлива и полоской прогресса (div.fuel-track → div.fuel-bar 
+с style.width), плюс три кнопки: "Поехать", "Заправить", "Удалить" — у каждой 
+свой addEventListener с передачей index через стрелочную обёртку (как в задании 14!)
+updateStats() — обновляет три <span> в блоке статистики: используй статическое 
+свойство класса для общего числа машин, и подсчитай легковые/грузовики через 
+fleet.filter(...) по тому, является машина экземпляром Truck или нет 
+(подсказка: есть оператор instanceof, который мы разбирали в теории — 
+vehicle instanceof Truck)
+
+4. Обработчики кнопок внутри renderFleet():
+
+"Поехать" → вызывает vehicle.drive(), потом перерисовку
+"Заправить" → вызывает vehicle.refuel(), потом перерисовку
+"Удалить" → убирает эту машину из fleet через filter по индексу 
+(как в задании 14!), потом перерисовку*/
+
+function renderFleet() {
+  list.innerText = '';
+  fleet.forEach((el, index) => {
+    const li = document.createElement('li');
+    li.innerText = el.name;
+    console.log(el.name);
+    list.prepend(li);
+    liCard(li)
+  }) 
+}
+
+function liCard(li) {
+  console.log('liCard');
+  const carType = document.createElement('div');
+  li.prepend(carType);
+  carType.innerText = selector.value;
+
+}
+
+const q = new Vehicle('ssd');
+const w = new Truck('dsd');
+const e = new Vehicle('ssdssd');
+const r = new Vehicle('sssssssd');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*set fuel() { //Почему тут обязательна переменная gas? Иначе ничего не работает. Пишет следующую ошибку. Uncaught SyntaxError: Setter must have exactly one formal parameter.
+    if (this.#fuel < 0 || this.#fuel > 100) {
+        alert ('fuel');
+        return;
+    } else {
+        return this.#fuel;
+    }
+}*/
