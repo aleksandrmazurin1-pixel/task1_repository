@@ -4910,9 +4910,7 @@ const q = new Vehicle('ssd');
 
 
 
-
-
-
+//25.06 16:44
 /*
 В процессе!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
@@ -4955,7 +4953,11 @@ const inpFuel = document.getElementById('car-fuel');
 const btn = document.getElementById('add-car-btn');
 
 const list = document.getElementById('fleet-list');
- 
+
+const totalCount = document.getElementById('total-count');
+const carCount = document.getElementById('car-count');
+const truckCount = document.getElementById('truck-count');
+
 
 class Vehicle {
   #fuel;
@@ -5050,6 +5052,47 @@ function addForm(evt) {
   console.log(fleet);
 }
 
+
+
+function renderFleet() {
+  list.innerText = '';
+  fleet.forEach((el, index) => {
+    const li = document.createElement('li');
+    li.innerText = el.name;
+    console.log(el.name);
+    list.prepend(li);
+    liCard(li, el);
+  });
+}
+
+function liCard(li, el) {
+  console.log('liCard');
+  const carType = document.createElement('div');
+  if (el instanceof Vehicle) {
+    carType.innerText = 'Легковая';
+  }
+  if ((el instanceof Truck)) {
+    carType.innerText = 'Грузовая';
+  }
+  li.append(carType);
+
+  const persentOfFuel = document.createElement('span');
+  persentOfFuel.innerHTML = `${Number(el.fuel)}%`;
+  li.append(persentOfFuel);
+  console.log(Number(inpFuel.value))
+
+  const progBar = document.createElement('div');
+  progBar.classList.add('progress-bar');
+  progBar.style.width = `${Number(el.fuel)}%`;
+  li.append(progBar);
+
+  liButtons(li, el);
+
+  inpFuel.value = '';
+  inpCar.value = '';
+}
+
+
 /*
 renderFleet() — очищает #fleet-list, перебирает fleet через 
 forEach((vehicle, index) => ...), для каждой машины создаёт <li> с названием, 
@@ -5069,64 +5112,50 @@ vehicle instanceof Truck)
 "Удалить" → убирает эту машину из fleet через filter по индексу 
 (как в задании 14!), потом перерисовку*/
 
-function renderFleet() {
-  list.innerText = '';
-  fleet.forEach((el, index) => {
-    const li = document.createElement('li');
-    li.innerText = el.name;
-    console.log(el.name);
-    list.prepend(li);
-    liCard(li);
-  });
+
+
+
+function liButtons(li, el) {
+  const driveBtn = document.createElement('button');
+  driveBtn.innerText = 'Поехать!';
+  li.append(driveBtn);
+
+  const refuelBtn = document.createElement('button');
+  refuelBtn.innerText = 'Заправиться!';
+  li.append(refuelBtn);
+
+  const liDeleteBtn = document.createElement('button');
+  liDeleteBtn.innerText = 'X';
+  li.append(liDeleteBtn);
+
+  driveBtn.addEventListener('click', () => handleDriveBtn(el));
+  refuelBtn.addEventListener('click', () => handleRefuelBtn(el));
+  liDeleteBtn.addEventListener('click', () => handleLiDeleteBtn(el));
+
 }
 
-function liCard(li) {
-  console.log('liCard');
-  const carType = document.createElement('div');
-  carType.innerText = selector.value; //Пока что неправильно работает, поправить!
-  li.append(carType);
-  
-  const persentOfFuel = document.createElement('span');
-  persentOfFuel.innerHTML = `${Number(inpFuel.value)}%`; //Пока что неправильно работает, поправить!
-  li.append(persentOfFuel);
-  console.log(Number(inpFuel.value))
-
-  const progBar = document.createElement('div');
-  progBar.classList.add('progress-bar');
-  progBar.style.width = `${Number(inpFuel.value)}%`; //Пока что неправильно работает, поправить!
-  li.append(progBar);
-  inpFuel.value = '';
-  inpCar.value = '';
+function handleDriveBtn(el) {
+  el.drive();
+  renderFleet();
 }
 
-const q = new Vehicle('ssd');
-const w = new Truck('dsd');
-const e = new Vehicle('ssdssd');
-const r = new Vehicle('sssssssd');
+function handleRefuelBtn(el) {
+  el.refuel();
+  renderFleet();
+}
 
+function handleLiDeleteBtn(el) {
+  fleet = fleet.filter(item => item !== el);
+  renderFleet();
+}
+/*
+function vehTotals() {
+  const q = Vehicle.totalCars;
+  console.log(Vehicle.totalCars)
+  totalCount.innerText = q;
+carCount
+truckCount
 
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*set fuel() { //Почему тут обязательна переменная gas? Иначе ничего не работает. Пишет следующую ошибку. Uncaught SyntaxError: Setter must have exactly one formal parameter.
-    if (this.#fuel < 0 || this.#fuel > 100) {
-        alert ('fuel');
-        return;
-    } else {
-        return this.#fuel;
-    }
-}*/
+*/
