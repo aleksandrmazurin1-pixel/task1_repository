@@ -4771,6 +4771,10 @@ function handlebtnDel(index) {
 }
 
 
+
+
+
+
 /*
 🎯 ЗАДАНИЕ 15 ФИНАЛОЧКА
 Архитектура (пиши с нуля, используя весь опыт из заданий 1-14):
@@ -4817,134 +4821,6 @@ vehicle instanceof Truck)
 */
 
 
-class Vehicle {
-    #fuel;
-    static totalCars = 0;
-    constructor(name, fuel = 0) {
-        this.name = name;
-        this.#fuel = fuel;
-    }
-
-    get fuel () {
-        return this.#fuel;
-    }
-
-    set fuel(gas) { 
-        if (gas < 0 || gas > 100) {
-            alert ('fuel');
-            return;
-        } else {
-            return this.#fuel = gas;
-        }
-    }
-
-    
-    drive(amount = 10) {
-        if ((this.#fuel - amount) < 0) {
-            alert('drive');
-            return;
-        } else {
-            return this.#fuel -= amount;    
-        }
-    }
-
-    refuel(amount = 20) {
-        if ((this.#fuel + amount) > 100) {
-            alert ('refuel');
-            return;
-        } else {
-            return this.#fuel += amount;    
-        }
-        
-    }
-}
-
-class Truck extends Vehicle {
-    
-    constructor (name, fuel = 0) {
-        super(name, fuel);
-    } 
-    
-    drive(amount = 20) {
-        return this.fuel -= amount;
-    }
-}
-
-const q = new Vehicle('ssd');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*set fuel() { //Почему тут обязательна переменная gas? Иначе ничего не работает. Пишет следующую ошибку. Uncaught SyntaxError: Setter must have exactly one formal parameter.
-    if (this.#fuel < 0 || this.#fuel > 100) {
-        alert ('fuel');
-        return;
-    } else {
-        return this.#fuel;
-    }
-}*/
-
-
-
-
-
-
-
-
-
-//25.06 16:44
-/*
-В процессе!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-
-
-/*🎯 ЗАДАНИЕ 15 ФИНАЛОЧКА
-
-2. Массив снаружи класса:
-
-const fleet = [] — хранит объекты Vehicle/Truck, как в задании 12.1/13/14.
-
-3. Функции (по аналогии с todo-листом из заданий 13-14):
-
-addVehicle() — обработчик кнопки: читает значения из трёх полей формы 
-(car-name, car-type, car-fuel), создаёт new Vehicle(...) или new Truck(...) 
-в зависимости от выбранного типа, пушит в fleet, очищает поля формы, 
-вызывает перерисовку
-renderFleet() — очищает #fleet-list, перебирает fleet через 
-forEach((vehicle, index) => ...), для каждой машины создаёт <li> с названием, 
-типом, текстом уровня топлива и полоской прогресса (div.fuel-track → div.fuel-bar 
-с style.width), плюс три кнопки: "Поехать", "Заправить", "Удалить" — у каждой 
-свой addEventListener с передачей index через стрелочную обёртку (как в задании 14!)
-updateStats() — обновляет три <span> в блоке статистики: используй статическое 
-свойство класса для общего числа машин, и подсчитай легковые/грузовики через 
-fleet.filter(...) по тому, является машина экземпляром Truck или нет 
-(подсказка: есть оператор instanceof, который мы разбирали в теории — 
-vehicle instanceof Truck)
-
-4. Обработчики кнопок внутри renderFleet():
-
-"Поехать" → вызывает vehicle.drive(), потом перерисовку
-"Заправить" → вызывает vehicle.refuel(), потом перерисовку
-"Удалить" → убирает эту машину из fleet через filter по индексу 
-(как в задании 14!), потом перерисовку
-*/
 
 const form = document.getElementById('form');
 const inpCar = document.getElementById('car-name');
@@ -5029,7 +4905,6 @@ class Truck extends Vehicle {
   }
 }
 
-
 let fleet = [];
 
 function handlePush(name, fuel) {
@@ -5045,28 +4920,22 @@ form.addEventListener('submit', addForm);
 function addForm(evt) {
   evt.preventDefault();
   handlePush(inpCar.value, Number(inpFuel.value));
-  console.log(Number(inpFuel.value));
-  //inpCar.value = '';
-  //inpFuel.value = '';
   renderFleet();
-  console.log(fleet);
+  vehTotals()
 }
-
-
 
 function renderFleet() {
   list.innerText = '';
   fleet.forEach((el, index) => {
     const li = document.createElement('li');
     li.innerText = el.name;
-    console.log(el.name);
     list.prepend(li);
     liCard(li, el);
   });
 }
 
 function liCard(li, el) {
-  console.log('liCard');
+
   const carType = document.createElement('div');
   if (el instanceof Vehicle) {
     carType.innerText = 'Легковая';
@@ -5079,7 +4948,7 @@ function liCard(li, el) {
   const persentOfFuel = document.createElement('span');
   persentOfFuel.innerHTML = `${Number(el.fuel)}%`;
   li.append(persentOfFuel);
-  console.log(Number(inpFuel.value))
+
 
   const progBar = document.createElement('div');
   progBar.classList.add('progress-bar');
@@ -5091,29 +4960,6 @@ function liCard(li, el) {
   inpFuel.value = '';
   inpCar.value = '';
 }
-
-
-/*
-renderFleet() — очищает #fleet-list, перебирает fleet через 
-forEach((vehicle, index) => ...), для каждой машины создаёт <li> с названием, 
-типом, текстом уровня топлива и полоской прогресса (div.fuel-track → div.fuel-bar 
-с style.width), плюс три кнопки: "Поехать", "Заправить", "Удалить" — у каждой 
-свой addEventListener с передачей index через стрелочную обёртку (как в задании 14!)
-updateStats() — обновляет три <span> в блоке статистики: используй статическое 
-свойство класса для общего числа машин, и подсчитай легковые/грузовики через 
-fleet.filter(...) по тому, является машина экземпляром Truck или нет 
-(подсказка: есть оператор instanceof, который мы разбирали в теории — 
-vehicle instanceof Truck)
-
-4. Обработчики кнопок внутри renderFleet():
-
-"Поехать" → вызывает vehicle.drive(), потом перерисовку
-"Заправить" → вызывает vehicle.refuel(), потом перерисовку
-"Удалить" → убирает эту машину из fleet через filter по индексу 
-(как в задании 14!), потом перерисовку*/
-
-
-
 
 function liButtons(li, el) {
   const driveBtn = document.createElement('button');
@@ -5131,7 +4977,6 @@ function liButtons(li, el) {
   driveBtn.addEventListener('click', () => handleDriveBtn(el));
   refuelBtn.addEventListener('click', () => handleRefuelBtn(el));
   liDeleteBtn.addEventListener('click', () => handleLiDeleteBtn(el));
-
 }
 
 function handleDriveBtn(el) {
@@ -5148,14 +4993,15 @@ function handleLiDeleteBtn(el) {
   fleet = fleet.filter(item => item !== el);
   renderFleet();
 }
-/*
+
 function vehTotals() {
-  const q = Vehicle.totalCars;
-  console.log(Vehicle.totalCars)
-  totalCount.innerText = q;
-carCount
-truckCount
-
+  const classTotalVeh = Vehicle.getTotalCars();
+  console.log(Vehicle.getTotalCars())
+  carCount.innerText = classTotalVeh;
+ 
+  const classTotalCars = Truck.getTotalTrucks();
+  truckCount.innerText = classTotalCars;
+  
+  const classTotalTrucks = Truck.getAllTotals();
+  totalCount.innerText = classTotalTrucks;
 }
-
-*/
