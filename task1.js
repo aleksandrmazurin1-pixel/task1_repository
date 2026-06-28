@@ -4628,7 +4628,7 @@ const list = document.getElementById('tasks-list');
 
 
 
-class Task {  
+class Task {
     constructor(title, isDone = false) {
         this.title = title;
         this.isDone = isDone;
@@ -4639,29 +4639,29 @@ const tasker = [];
 
 btn.addEventListener('click', handleBtn);
 
-function handleBtn () {
-  if (inp.value === '') {
-    alert ('sdsdddqqq');
-  } else {
-    createArr(inp.value);
-  }
+function handleBtn() {
+    if (inp.value === '') {
+        alert('sdsdddqqq');
+    } else {
+        createArr(inp.value);
+    }
 }
 
 function createArr(title) {
-  tasker.push(new Task(title));
-  console.log('cre')
-  renderTask();
+    tasker.push(new Task(title));
+    console.log('cre')
+    renderTask();
 }
 
-function renderTask () {
-  inp.value = ''; 
-  console.log('renderTask')
-  list.innerText = '';
-  tasker.forEach(el => {
-    const li = document.createElement('li');
-    li.innerText = el.title;
-    list.appendChild(li);
-  });
+function renderTask() {
+    inp.value = '';
+    console.log('renderTask')
+    list.innerText = '';
+    tasker.forEach(el => {
+        const li = document.createElement('li');
+        li.innerText = el.title;
+        list.appendChild(li);
+    });
 }
 
 
@@ -4721,10 +4721,10 @@ const btn = document.getElementById('add-task-btn');
 const list = document.getElementById('tasks-list');
 
 class Task {
-  constructor(title, isDone = false) {
-    this.title = title;
-    this.isDone = isDone;
-  }
+    constructor(title, isDone = false) {
+        this.title = title;
+        this.isDone = isDone;
+    }
 }
 
 let tasker = [];
@@ -4732,42 +4732,42 @@ let tasker = [];
 btn.addEventListener('click', handleBtn)
 
 function pushElement(title) {
-  tasker.push(new Task(title));
+    tasker.push(new Task(title));
 }
 
 function handleBtn() {
-  console.log('sdds');
-  if (inp.value === '') {
-    alert('sdsdssd qqq');
-  } else {
-    pushElement(inp.value);
-  }
-  renderTask();
+    console.log('sdds');
+    if (inp.value === '') {
+        alert('sdsdssd qqq');
+    } else {
+        pushElement(inp.value);
+    }
+    renderTask();
 }
 
-function renderTask () {
-  inp.value = '';
-  list.innerHTML = '';
-  tasker.forEach((elka, index) => {
+function renderTask() {
+    inp.value = '';
+    list.innerHTML = '';
+    tasker.forEach((elka, index) => {
 
-    const li = document.createElement('li');
-    const btnDel = document.createElement('button');
-    
-    li.innerText = elka.title;
-    btnDel.innerText = 'X';
-  
-    list.appendChild(li);
-    li.appendChild(btnDel);
+        const li = document.createElement('li');
+        const btnDel = document.createElement('button');
 
-    btnDel.addEventListener('click', () => handlebtnDel(index));
-  });
+        li.innerText = elka.title;
+        btnDel.innerText = 'X';
+
+        list.appendChild(li);
+        li.appendChild(btnDel);
+
+        btnDel.addEventListener('click', () => handlebtnDel(index));
+    });
 }
 
 
 function handlebtnDel(index) {
-  tasker = tasker.filter((task, i) => i !== index);
-  renderTask();
-  return;
+    tasker = tasker.filter((task, i) => i !== index);
+    renderTask();
+    return;
 }
 
 
@@ -4836,172 +4836,474 @@ const truckCount = document.getElementById('truck-count');
 
 
 class Vehicle {
-  #fuel;
-  static totalCars = 0;
-  static totalAllVehicle = 0;
-  constructor(name, fuel = 0) {
-    this.name = name;
-    this.#fuel = fuel;
-    if (new.target === Vehicle) {
-      Vehicle.totalCars++;
+    #fuel;
+    static totalCars = 0;
+    static totalAllVehicle = 0;
+    constructor(name, fuel = 0) {
+        this.name = name;
+        this.#fuel = fuel;
+        if (new.target === Vehicle) {
+            Vehicle.totalCars++;
+        }
+        Vehicle.totalAllVehicle++;
     }
-    Vehicle.totalAllVehicle++;
-  }
 
-  get fuel() {
-    return this.#fuel;
-  }
-
-  set fuel(gas) {
-    if (gas < 0 || gas > 100) {
-      alert('fuel');
-      return;
-    } else {
-      return this.#fuel = gas;
+    get fuel() {
+        return this.#fuel;
     }
-  }
 
-
-  drive(amount = 10) {
-    if ((this.#fuel - amount) < 0) {
-      alert('drive');
-      return;
-    } else {
-      return this.#fuel -= amount;
+    set fuel(gas) {
+        if (gas < 0 || gas > 100) {
+            alert('fuel');
+            return;
+        } else {
+            return this.#fuel = gas;
+        }
     }
-  }
 
-  refuel(amount = 20) {
-    if ((this.#fuel + amount) > 100) {
-      alert('refuel');
-      return;
-    } else {
-      return this.#fuel += amount;
+
+    drive(amount = 10) {
+        if ((this.#fuel - amount) < 0) {
+            alert('drive');
+            return;
+        } else {
+            return this.#fuel -= amount;
+        }
     }
-  }
 
-  static getTotalCars() {
-    return this.totalCars;
-  }
+    refuel(amount = 20) {
+        if ((this.#fuel + amount) > 100) {
+            alert('refuel');
+            return;
+        } else {
+            return this.#fuel += amount;
+        }
+    }
+
+    static getTotalCars() {
+        return this.totalCars;
+    }
 }
 
 class Truck extends Vehicle {
-  static totalTrucks = 0;
-  constructor(name, fuel = 0) {
-    super(name, fuel);
-    Truck.totalTrucks++;
-  }
+    static totalTrucks = 0;
+    constructor(name, fuel = 0) {
+        super(name, fuel);
+        Truck.totalTrucks++;
+    }
 
-  drive(amount = 20) {
-    return this.fuel -= amount;
-  }
+    drive(amount = 20) {
+        return this.fuel -= amount;
+    }
 
-  static getTotalTrucks() {
-    return this.totalTrucks;
-  }
+    static getTotalTrucks() {
+        return this.totalTrucks;
+    }
 
-  static getAllTotals() {
-    return this.totalAllVehicle;
-  }
+    static getAllTotals() {
+        return this.totalAllVehicle;
+    }
 }
 
 let fleet = [];
 
 function handlePush(name, fuel) {
-  if (selector.value === 'car') {
-    fleet.push(new Vehicle(name, fuel));
-  } else {
-    fleet.push(new Truck(name, fuel));
-  }
+    if (selector.value === 'car') {
+        fleet.push(new Vehicle(name, fuel));
+    } else {
+        fleet.push(new Truck(name, fuel));
+    }
 }
 
 form.addEventListener('submit', addForm);
 
 function addForm(evt) {
-  evt.preventDefault();
-  handlePush(inpCar.value, Number(inpFuel.value));
-  renderFleet();
-  vehTotals()
+    evt.preventDefault();
+    handlePush(inpCar.value, Number(inpFuel.value));
+    renderFleet();
+    vehTotals()
 }
 
 function renderFleet() {
-  list.innerText = '';
-  fleet.forEach((el, index) => {
-    const li = document.createElement('li');
-    li.innerText = el.name;
-    list.prepend(li);
-    liCard(li, el);
-  });
+    list.innerText = '';
+    fleet.forEach((el, index) => {
+        const li = document.createElement('li');
+        li.innerText = el.name;
+        list.prepend(li);
+        liCard(li, el);
+    });
 }
 
 function liCard(li, el) {
 
-  const carType = document.createElement('div');
-  if (el instanceof Vehicle) {
-    carType.innerText = 'Легковая';
-  }
-  if ((el instanceof Truck)) {
-    carType.innerText = 'Грузовая';
-  }
-  li.append(carType);
+    const carType = document.createElement('div');
+    if (el instanceof Vehicle) {
+        carType.innerText = 'Легковая';
+    }
+    if ((el instanceof Truck)) {
+        carType.innerText = 'Грузовая';
+    }
+    li.append(carType);
 
-  const persentOfFuel = document.createElement('span');
-  persentOfFuel.innerHTML = `${Number(el.fuel)}%`;
-  li.append(persentOfFuel);
+    const persentOfFuel = document.createElement('span');
+    persentOfFuel.innerHTML = `${Number(el.fuel)}%`;
+    li.append(persentOfFuel);
 
 
-  const progBar = document.createElement('div');
-  progBar.classList.add('progress-bar');
-  progBar.style.width = `${Number(el.fuel)}%`;
-  li.append(progBar);
+    const progBar = document.createElement('div');
+    progBar.classList.add('progress-bar');
+    progBar.style.width = `${Number(el.fuel)}%`;
+    li.append(progBar);
 
-  liButtons(li, el);
+    liButtons(li, el);
 
-  inpFuel.value = '';
-  inpCar.value = '';
+    inpFuel.value = '';
+    inpCar.value = '';
 }
 
 function liButtons(li, el) {
-  const driveBtn = document.createElement('button');
-  driveBtn.innerText = 'Поехать!';
-  li.append(driveBtn);
+    const driveBtn = document.createElement('button');
+    driveBtn.innerText = 'Поехать!';
+    li.append(driveBtn);
 
-  const refuelBtn = document.createElement('button');
-  refuelBtn.innerText = 'Заправиться!';
-  li.append(refuelBtn);
+    const refuelBtn = document.createElement('button');
+    refuelBtn.innerText = 'Заправиться!';
+    li.append(refuelBtn);
 
-  const liDeleteBtn = document.createElement('button');
-  liDeleteBtn.innerText = 'X';
-  li.append(liDeleteBtn);
+    const liDeleteBtn = document.createElement('button');
+    liDeleteBtn.innerText = 'X';
+    li.append(liDeleteBtn);
 
-  driveBtn.addEventListener('click', () => handleDriveBtn(el));
-  refuelBtn.addEventListener('click', () => handleRefuelBtn(el));
-  liDeleteBtn.addEventListener('click', () => handleLiDeleteBtn(el));
+    driveBtn.addEventListener('click', () => handleDriveBtn(el));
+    refuelBtn.addEventListener('click', () => handleRefuelBtn(el));
+    liDeleteBtn.addEventListener('click', () => handleLiDeleteBtn(el));
 }
 
 function handleDriveBtn(el) {
-  el.drive();
-  renderFleet();
+    el.drive();
+    renderFleet();
 }
 
 function handleRefuelBtn(el) {
-  el.refuel();
-  renderFleet();
+    el.refuel();
+    renderFleet();
 }
 
 function handleLiDeleteBtn(el) {
-  fleet = fleet.filter(item => item !== el);
-  renderFleet();
+    fleet = fleet.filter(item => item !== el);
+    renderFleet();
 }
 
 function vehTotals() {
-  const classTotalVeh = Vehicle.getTotalCars();
-  console.log(Vehicle.getTotalCars())
-  carCount.innerText = classTotalVeh;
- 
-  const classTotalCars = Truck.getTotalTrucks();
-  truckCount.innerText = classTotalCars;
-  
-  const classTotalTrucks = Truck.getAllTotals();
-  totalCount.innerText = classTotalTrucks;
+    const classTotalVeh = Vehicle.getTotalCars();
+    console.log(Vehicle.getTotalCars())
+    carCount.innerText = classTotalVeh;
+
+    const classTotalCars = Truck.getTotalTrucks();
+    truckCount.innerText = classTotalCars;
+
+    const classTotalTrucks = Truck.getAllTotals();
+    totalCount.innerText = classTotalTrucks;
 }
+
+
+
+
+
+/*
+Задание 1 — localStorage: записать и прочитать строку
+Открой консоль разработчика прямо в браузере (можно на любой открытой странице, даже на этой).
+Напиши в консоли код, который:
+
+Сохраняет в localStorage под ключом 'myName' любую строку (например, своё имя)
+Сразу после этого читает значение по этому же ключу обратно и выводит его в консоль через console.log
+
+Подсказка по методам, которые тебе понадобятся (без точного синтаксиса): у объекта localStorage 
+есть метод "положить значение по ключу" и метод "получить значение по ключу" — оба принимают строку-ключ.
+Когда сделаешь — попробуй перезагрузить страницу и повторить только вторую часть (чтение) — 
+проверь, осталось ли значение.
+*/
+
+
+localStorage.setItem('myName', 'Alex');
+const q = localStorage.getItem('myName');
+
+console.log(q);
+
+
+
+/*
+Задание 2 — localStorage: сохранить и восстановить массив
+Это тоже делаем прямо в консоли (на твоей локальной странице, где всё работает).
+Смысл в том, что localStorage умеет хранить только строки — ни массивы, 
+ни объекты напрямую туда не положить. Поэтому нужен "переводчик" в обе стороны.
+Напиши код, который:
+
+Создаёт обычный массив строк, например ['яблоко', 'банан', 'груша']
+Превращает этот массив в строку и сохраняет её в localStorage под ключом 'fruits'
+Сразу после — читает это значение обратно из localStorage (оно придёт строкой)
+Превращает прочитанную строку обратно в настоящий массив
+Выводит этот восстановленный массив в консоль и проверяет через console.log, 
+что это действительно массив, а не строка (можно глазами по виду в консоли, 
+или через Array.isArray(...))
+
+Подсказка по направлению мысли: тебе нужны две операции — одна превращает JS-значение 
+(массив/объект) в текстовую строку, другая делает обратное превращение, 
+из текста снова в живой JS-объект/массив. Оба метода лежат на объекте, 
+имя которого ты уже видел в data.js, который мне показывал.
+*/
+
+
+
+const arr = ['Яблоко.', 'Банан.', 'Груша.'];
+localStorage.setItem('array', JSON.stringify(arr));
+
+const q = JSON.parse(localStorage.getItem('array'));
+console.log(q);
+
+
+
+/*
+Задание 3 — localStorage: синхронизация через кастомное событие
+Эта тема — самая нетривиальная штука в data.js, которую ты, скорее всего, ещё не встречал, 
+поэтому разберём отдельно, прежде чем давать задание.
+Зачем вообще нужно "кастомное событие"?
+Представь ситуацию: у тебя есть функция, которая меняет данные (например, добавляет фрукт 
+в localStorage), и есть функция, которая показывает данные на экране. Если между ними нет связи — 
+после изменения данных экран не узнает, что что-то поменялось, и не обновится сам.
+Можно, конечно, просто вызывать функцию отрисовки прямо внутри функции изменения данных — 
+но в архитектуре data.js/display.js это запрещено по правилам разделения: data.js не должен знать 
+про существование display.js (помнишь — "data.js не трогает DOM"). Если data.js будет напрямую звать 
+функцию из display.js, это нарушит изоляцию.
+Решение — кастомное событие. data.js после изменения данных "выкрикивает в воздух" — "эй, что-то 
+изменилось!" — без adресата, без знания, кто слушает. А кто угодно (в нашем случае main.js) может
+ подписаться на этот выкрик и сам решить, что делать в ответ (например, вызвать отрисовку).
+Это очень похоже на addEventListener('click', ...), который ты используешь для кнопок — только 
+вместо клика мышкой, мы сами создаём событие и сами его "запускаем".
+
+Задание 3
+Напиши код (можно прямо в консоли, по шагам), который:
+
+С помощью window.addEventListener(...) подписывается на событие с именем, например, 'dataChanged' — и в 
+ответ просто выводит в консоль любое сообщение типа 'Данные изменились!'
+После этого создаёт новое событие через new Event('dataChanged') (или new CustomEvent(...), если хочешь) 
+и "выстреливает" его через window.dispatchEvent(...)
+
+Проверь: после того как ты выполнишь пункт 2 — должно ли в консоли появиться сообщение из пункта 1, 
+без того, чтобы ты сам напрямую вызывал ту функцию?
+*/
+
+
+window.addEventListener('myEvent', handleMyEvent);
+const q = new Event('myEvent');
+
+window.dispatchEvent(q)
+
+
+function handleMyEvent() {
+    console.log('Данные изменились!');
+}
+
+
+/*
+Задание 3.1 — событие с дополнительными данными
+Иногда событию недостаточно просто "сообщить о факте" — нужно передать какие-то данные вместе с ним. 
+Для этого вместо new Event(...) используется new CustomEvent('имя', { detail: какие_то_данные }).
+Напиши код, который:
+
+Подписывается на событие 'fruitAdded', и в обработчике выводит в консоль не просто текст, 
+а именно те данные, которые пришли вместе с событием (подсказка: они будут лежать внутри 
+объекта события, в свойстве detail — то есть в обработчике у тебя должен появиться параметр, 
+например evt, а доступ к данным — через evt.detail)
+Создаёт CustomEvent('fruitAdded', { detail: 'банан' }) и тут же его запускает
+*/
+
+
+window.addEventListener('fruitAdded', handleFruit);
+
+const www = new CustomEvent('fruitAdded', {detail: 'nameAlex'});
+
+window.dispatchEvent(www);
+
+
+function handleFruit (evt) {
+    console.log(evt.detail);
+}
+
+
+
+/*
+Задание 3.2 — два разных слушателя на одно событие
+Проверь, может ли больше одной функции слушать одно и то же событие одновременно.
+Напиши код, который:
+
+Подписывает две разные функции (с разными именами) на одно и то же событие 'ping'
+Запускает это событие один раз
+Смотришь — вызвались ли обе функции, или только одна
+*/
+
+window.addEventListener('ping', handleDouble);
+
+const qOne = new Event('ping');
+const qTwo = new Event('ping');
+
+window.dispatchEvent(qOne);
+window.dispatchEvent(qTwo);
+
+function handleDouble() {
+    console.log(qOne);
+    console.log(qTwo);
+}
+
+
+
+/*
+Задание 3.3 — событие внутри функции, имитирующей save()
+Это уже максимально близко к тому, что реально происходит в data.js.
+Напиши код, который:
+
+Объявляет функцию saveFruit(name), которая внутри себя сохраняет переданное имя фрукта 
+в localStorage (как в Задании 2, но для одного значения), а сразу следом — сама создаёт 
+и запускает CustomEvent('fruitSaved', { detail: name })
+Отдельно подписывается на 'fruitSaved' — и в обработчике читает evt.detail и выводит 
+в консоль что-то вроде Сохранён фрукт: банан
+Вызывает saveFruit('банан') — и проверяет, что в консоли появляется и подтверждение через событие
+
+Это — уже почти буквально то, что делает функция save() в твоём data.js, только она 
+dispatchEvent без detail, а здесь ты потренируешься с данными внутри события.
+*/
+
+window.addEventListener('ddd', saveFruit);
+const qqq = new CustomEvent('ddd', {detail: 'banana'});
+
+window.dispatchEvent(qqq);
+
+function saveFruit(name) {
+    localStorage.setItem('name', `${name.detail}`);
+    const p = localStorage.getItem('name');
+    console.log(p); 
+}
+
+
+
+
+/*
+Задание 3.4 — своя версия трёх файлов, с нуля, по памяти
+Не открывай те файлы, что я тебе дал. Создай свою версию из трёх файлов 
+(data.js, display.js, main.js) и index.html, но для другой темы — не фрукты, а, например, 
+список покупок или список фильмов (что хочешь). Структура должна повторять ту же логику:
+
+data.js — глобальный массив + функция добавления элемента + dispatchEvent внутри неё
+display.js — функция рендера, которая просто проходит по массиву и рисует
+main.js — подписка на событие + обработчик формы
+
+Цель — не подсмотреть и скопировать, а воспроизвести структуру по памяти, опираясь на понимание, 
+а не на текст перед глазами.
+
+
+
+
+
+/*
+Задание 3.5 — добавляем второе действие (удаление) через ту же схему
+Возьми свой файл из 3.4 (с фильмами/задачами) и добавь функцию удаления элемента — 
+она тоже должна жить в data.js, тоже менять массив (через filter), и тоже сама "выкрикивать" 
+то же самое событие 'filmChanged' (то же имя, что и при добавлении).
+
+Ключевая проверка для тебя, прежде чем писать код: подумай, нужно ли в main.js или display.js 
+писать отдельную подписку (addEventListener) на событие для удаления — или достаточно той единственной 
+подписки, что уже есть, потому что событие называется одинаково для обоих действий ('filmChanged')?
+Чтобы реализовать само удаление, тебе придётся решить попутно ещё один вопрос: сейчас твой массив 
+window.tasks — это просто список строк (['Интерстеллар', 'Дюна']), без id. Значит, при удалении 
+придётся ориентироваться либо на сам текст (имя), либо на индекс — выбери сам, как тебе удобнее,
+
+и приделай к этому кнопку "удалить" возле каждого <li> в renderTask() (по аналогии с тем, 
+что ты уже делал в Fleet Manager и Todo-листе — передача индекса/значения через стрелочную обёртку 
+в addEventListener).*/
+
+
+
+
+
+data
+
+window.tasks = [];
+
+function addFilm(name) {
+    window.tasks.push(name)
+
+    window.dispatchEvent(new Event('filmChanged'));
+}
+
+function removeFilm(name) {
+    window.tasks = window.tasks.filter(el => el !== name);
+
+    window.dispatchEvent(new Event('filmChanged'));
+}
+
+
+
+
+display
+
+
+const list = document.getElementById('list');
+
+function renderTask() {
+    list.innerText = '';
+    window.tasks.forEach(element => {
+        const li = document.createElement('li');
+        li.innerText = element;
+        list.prepend(li);
+
+        const btnDel = document.createElement('button');
+        btnDel.innerText = 'X';
+        li.appendChild(btnDel);
+        btnDel.addEventListener('click', () => handleBtnDel(element))
+
+    });
+}
+
+
+
+main
+
+
+
+const form = document.getElementById('form');
+const input = document.getElementById('input');
+
+
+renderTask();
+
+
+
+window.addEventListener('filmChanged', renderTask);
+
+function handleBtnDel(name) {
+    removeFilm(name);
+}
+
+form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    addFilm(input.value);
+    input.value = '';
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
