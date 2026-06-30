@@ -5121,12 +5121,12 @@ function handleMyEvent() {
 
 window.addEventListener('fruitAdded', handleFruit);
 
-const www = new CustomEvent('fruitAdded', {detail: 'nameAlex'});
+const www = new CustomEvent('fruitAdded', { detail: 'nameAlex' });
 
 window.dispatchEvent(www);
 
 
-function handleFruit (evt) {
+function handleFruit(evt) {
     console.log(evt.detail);
 }
 
@@ -5174,14 +5174,14 @@ dispatchEvent без detail, а здесь ты потренируешься с 
 */
 
 window.addEventListener('ddd', saveFruit);
-const qqq = new CustomEvent('ddd', {detail: 'banana'});
+const qqq = new CustomEvent('ddd', { detail: 'banana' });
 
 window.dispatchEvent(qqq);
 
 function saveFruit(name) {
     localStorage.setItem('name', `${name.detail}`);
     const p = localStorage.getItem('name');
-    console.log(p); 
+    console.log(p);
 }
 
 
@@ -5483,29 +5483,72 @@ nameElement.textContent = category.name.
 
 
 
+const updatedTask = { id: '3', name: 'Помыть посуду и сковородки' };
+
+const li = document.querySelector(`[data-task-id="${updatedTask.id}"]`);
+
+if (li) {
+    li.innerText = updatedTask.name;
+} else {
+  alert('Ищи ID корректнее');
+}
 
 
 
 
+/*
+Задание 6 — полная имитация displayNew()
+Это объединяет всё, что было в блоке 4-5.
+У тебя есть массив объектов (имитация window.store, но без вложенности — пока один уровень):
+
+const items = [
+  { id: '1', name: 'Помыть посуду' },
+  { id: '2', name: 'Купить молоко' },
+];
+
+И пустой 
+<ul id="list"></ul> 
+в HTML (без заранее прописанных <li>).
+
+Напиши функцию renderItems(), которая:
+Проходит по items через forEach
+Для каждого элемента — ищет в DOM <li> с data-task-id, равным item.id
+Если не нашёл — создаёт новый <li> через document.createElement, ставит ему dataset.taskId = item.id, 
+текст — item.name, и добавляет в <ul> через append
+Если нашёл (на этот раз не должно случиться, так как <ul> пустой — но код всё равно должен это уметь) — 
+просто обновляет innerText найденного элемента
+
+Вызови renderItems() один раз — проверь, что оба <li> появились на странице с правильными data-атрибутами.
+Затем — не трогая HTML руками — поменяй в массиве items имя у одного из объектов 
+(например, items[0].name = 'Помыть посуду и сковородки') и вызови renderItems() ещё раз. 
+Проверь в DevTools: создался ли новый <li>, или обновился старый?
+*/
+
+const list = document.getElementById('list');
 
 
+const items = [
+  { id: '2', name: 'Помыть посуду' },
+  { id: '3', name: 'Купить молоко' },
+];
+
+function renderItems() {
+  items.forEach(el => {
+    
+    let li = document.querySelector(`[data-task-id="${el.id}"]`)
+    if (!li) {
+      li = document.createElement('li');
+      li.dataset.taskId = el.id; //dataset - Добавляет data Атрибут.
+      li.innerText = el.name;
+      list.append(li);
+    } else if (li) {
+      li.innerText = el.name;
+    }
+  });
+}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+renderItems()
 
 
 
