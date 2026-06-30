@@ -5427,4 +5427,90 @@ DOM-элемент — как true). Попробуй оба варианта м
 
 
 
+const taskFromData = { id: '2', name: 'Помыть посуду' };
+
+const li = document.querySelector(`[data-task-id="${taskFromData.id}"]`);
+if (li) {
+    console.log('Уже есть на экране');
+    li.innerText = taskFromData.name;
+} else {
+    console.log('Нужно создать новый')
+}
+
+
+/*
+Задание 5.6 — поиск среди нескольких разных типов данных
+У тебя есть HTML с разными <li> — но теперь не просто с data-task-id, а ещё и с data-category-id вперемешку 
+(как в твоём финальном тудулисте, где есть и категории, и задачи на одном уровне разметки):
+
+<ul>
+  <li data-category-id="cat-1">Работа</li>
+  <li data-task-id="t-1">Помыть посуду</li>
+  <li data-task-id="t-2">Сходить в магазин</li>
+  <li data-category-id="cat-2">Учёба</li>
+</ul>
+
+Напиши код, который:
+
+Находит все <li> с data-task-id (не трогая те, у которых data-category-id) и выводит в консоль их 
+количество Отдельно — находит все <li> с data-category-id и тоже выводит их количество
+
+Это покажет тебе, что разные имена data-атрибутов позволяют "сортировать" разные виды элементов на 
+одной странице, не путая их между собой.
+*/
+
+
+const taskLi = document.querySelectorAll('[data-task-id]');
+
+const catLi = document.querySelectorAll('[data-category-id]');
+
+console.log(taskLi.length)
+console.log(catLi.length)
+
+
+
+
+/*
+Задание 5.7 — обновление, а не поиск ради поиска
+У тебя есть переменная:
+const updatedTask = { id: 't-1', name: 'Помыть посуду и сковородки' };
+Найди <li> с data-task-id, равным updatedTask.id, и если он нашёлся — измени его текст (innerText) 
+на updatedTask.name. Если не нашёлся — выведи в консоль 'Элемент не найден, нечего обновлять'.
+Это уже почти буквально та часть displayNew() из твоего исходного файла, где для уже существующего 
+элемента не создают новый <li>, а просто обновляют текст внутри найденного — вспомни строку 
+nameElement.textContent = category.name.
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
