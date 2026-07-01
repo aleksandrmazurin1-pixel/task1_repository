@@ -5762,6 +5762,49 @@ findCategory('cat-99') — должна вернуть undefined
 
 
 
+let categories = [{
+  id: 'cat-1',
+  name: 'Работа',
+  tasks: [{
+    id: 'ts-1',
+    name: 'Написать отчёт',
+  },
+  {
+    id: 'ts-2',
+    name: 'Позвонить клиенту',
+  },]
+},
+{
+  id: 'cat-2',
+  name: 'Учёба',
+  tasks: [{
+    id: 'ts-3',
+    name: 'Прочитать главу',
+  },
+  {
+    id: 'ts-4',
+    name: 'Сделать домашку',
+  },]
+}];
+
+let category = [];
+
+function findCategory(id) {
+  category = categories.find(el => {
+    if (id) {
+      el.id === id;
+      
+    }
+    
+  });
+  
+  console.log(`${category.name}`);
+    category.tasks.forEach(ell => console.log(`${ell.name}`));
+    return category;
+
+Всё переломал, надо переделать. !!!!!!!
+}
+
 
 
 
